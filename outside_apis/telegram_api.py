@@ -117,7 +117,7 @@ def set_menu_commands(commands: List[dict]) -> bool:
     payload = {'commands': commands}
 
     headers = {'Content-Type': 'application/json'}
-
+   
     response = requests.request(
         'POST', f'{BASE_URL}/setMyCommands', json=payload, headers=headers)
     status_code = response.status_code

@@ -4,6 +4,7 @@ from flask import request
 
 from outside_apis.openai_api import text_complition
 
+
 def process_request(request: request) -> dict:
     '''
     Process the incoming data of the Telegram request
@@ -22,7 +23,7 @@ def process_request(request: request) -> dict:
             'first_name': first_name
         }
     '''
-    
+
     body = request.get_json()
     headers = request.headers
     secret_token = headers['X-Telegram-Bot-Api-Secret-Token']
@@ -32,7 +33,6 @@ def process_request(request: request) -> dict:
     is_text = False
     first_name = ''
     sender_id = None
-
 
     if 'message' in body.keys():
         sender_id = body['message']['from']['id']
@@ -51,6 +51,7 @@ def process_request(request: request) -> dict:
         'first_name': first_name,
         'is_bot': is_bot
     }
+
 
 def generate_response(message: str) -> str:
     '''
@@ -80,3 +81,14 @@ def generate_response(message: str) -> str:
             return result['response'].strip()
         else:
             return 'Sorry, I am out of service at this moment.'
+
+
+def generate_menu_bot():
+    menu_commands = [
+    {"command": "/tienda", "description": "🛍 Tienda On Line"},
+    {"command": "/contactme", "description": "📞 Contact me"},
+    {"command": "/youtube", "description": "📹 My youtube"},
+    {"command": "/twitter", "description": "🐦 My Twitter"},
+    {"command": "/instagram", "description": "📷 My Instagram"}
+    ] 
+    return  menu_commands

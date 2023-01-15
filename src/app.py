@@ -2,8 +2,8 @@ import os
 
 
 from outside_apis.telegram_api import send_message, set_webhook, set_menu_commands
-from helper.utils import process_request, generate_response
-from outside_apis.database_api import save_message_to_db
+from helper.utils import process_request, generate_response, generate_menu_bot
+from outside_apis.database_api import save_message_to_db, create_collections
 
 
 from flask import Flask, request
@@ -13,6 +13,10 @@ load_dotenv()
 
 app = Flask(__name__)
 
+
+create_collections()
+
+menu = set_menu_commands(generate_menu_bot())
 
 @app.route('/')
 def home():
@@ -65,6 +69,6 @@ def set_telegram_menu_commands():
         if flag:
             return 'OK', 200
         else:
-            return 'BAD REQUEST', 400
+            return 'BAD- REQUEST', 400
     else:
         return 'BAD REQUEST', 400
